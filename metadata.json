@@ -1,0 +1,6 @@
+{
+  "name": "Social Media Notification & Content Planner",
+  "description": "Schedules, reminds, and alerts you when to post on social media by reading your content calendar from Google Sheets, with a supportive brand-kit chat tool using Gemini.",
+  "requestFramePermissions": ["notifications"],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
