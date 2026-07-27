@@ -4,7 +4,7 @@
   "crons": [
     {
       "path": "/api/run-reminders",
-      "schedule": "*/30 * * * *"
+      "schedule": "0 9 * * *"
     }
   ],
   "rewrites": [
