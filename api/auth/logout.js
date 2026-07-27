@@ -964,8 +964,8 @@ var runRemindersHandler = asyncHandler(async (req, res) => {
   res.json({ ok: true, duePosts: duePosts.length, subscriptions: subscriptions.length, sent });
 });
 
-// api/health.ts
-var health_default = healthHandler;
+// api/auth/logout.tmp.ts
+var logout_tmp_default = logoutHandler;
 export {
-  health_default as default
+  logout_tmp_default as default
 };
