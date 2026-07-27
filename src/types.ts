@@ -9,4 +9,4 @@ export type {
   PostStatus,
   SheetsConfig,
   ToastNotice,
-} from "../shared/types";
+} from "../api/_shared/types";

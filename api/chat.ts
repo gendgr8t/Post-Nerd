@@ -1,3 +1,3 @@
-import { chatHandler } from "../shared/handlers.ts";
+import { chatHandler } from "./_shared/handlers.ts";
 
 export default chatHandler;

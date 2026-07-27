@@ -6,7 +6,7 @@ import {
 } from "lucide-react";
 import { motion, AnimatePresence } from "motion/react";
 import { getDesignDueDate, toDateInputValue } from "../mockData";
-import { SHEET_TEMPLATE_HEADERS } from "../../shared/sheets";
+import { SHEET_TEMPLATE_HEADERS } from "../../api/_shared/sheets";
 
 interface CalendarViewProps {
   posts: PostItem[];

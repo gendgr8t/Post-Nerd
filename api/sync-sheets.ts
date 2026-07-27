@@ -1,3 +1,3 @@
-import { syncSheetsHandler } from "../shared/handlers.ts";
+import { syncSheetsHandler } from "./_shared/handlers.ts";
 
 export default syncSheetsHandler;

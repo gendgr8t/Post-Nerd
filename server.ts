@@ -16,7 +16,7 @@ import {
   stateHandler,
   suggestCopyHandler,
   syncSheetsHandler,
-} from "./shared/handlers";
+} from "./api/_shared/handlers";
 
 dotenv.config();
 

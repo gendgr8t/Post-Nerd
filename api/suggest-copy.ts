@@ -1,3 +1,3 @@
-import { suggestCopyHandler } from "../shared/handlers.ts";
+import { suggestCopyHandler } from "./_shared/handlers.ts";
 
 export default suggestCopyHandler;

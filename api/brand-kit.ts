@@ -1,3 +1,3 @@
-import { brandKitHandler } from "../shared/handlers.ts";
+import { brandKitHandler } from "./_shared/handlers.ts";
 
 export default brandKitHandler;
