@@ -36,11 +36,11 @@ export const BrandKitView: React.FC<BrandKitViewProps> = ({ brandKit, onSave }) 
     <div id="brand-kit-panel" className="px-5 py-4 space-y-6">
       <div className="flex items-center gap-2 mb-4">
         <Sparkles className="w-5 h-5 text-indigo-400" />
-        <h2 className="text-lg font-bold text-slate-100 font-sans tracking-tight">Android Brand Kit Setup</h2>
+        <h2 className="text-lg font-bold text-slate-100 font-sans tracking-tight">Brand Kit</h2>
       </div>
 
       <p className="text-xs text-slate-400 leading-relaxed">
-        Set up your content identity variables here. These guidelines will act as the master prompt constraints for Gemini when generating social copies.
+        Set the voice and themes that should guide caption drafts and content briefs.
       </p>
 
       <form onSubmit={handleSubmit} className="space-y-4">
@@ -143,10 +143,10 @@ export const BrandKitView: React.FC<BrandKitViewProps> = ({ brandKit, onSave }) 
       {/* Brand Identity Card representation */}
       <div className="mt-4 p-4 rounded-2xl bg-gradient-to-br from-indigo-950/40 to-slate-900 border border-indigo-950 text-left">
         <h4 className="text-xs font-semibold text-indigo-400 mb-1 flex items-center gap-1">
-          <Sparkles className="w-3 h-3" /> Brand Vector Preset
+          <Sparkles className="w-3 h-3" /> Active Brand Profile
         </h4>
         <p className="text-[11px] text-slate-300 leading-relaxed italic">
-          "Gemini copy suggestion models are locked into the active guidelines profile: {name || "None"} in the {industry || "None"} sector. Core messaging revolves around theme keywords: {themes || "None"}"
+          "{name || "No brand name yet"} in {industry || "no industry selected"}. Core messaging: {themes || "No themes set"}."
         </p>
       </div>
     </div>

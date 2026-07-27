@@ -8,7 +8,7 @@ interface MobileFrameProps {
     id: string;
     title: string;
     message: string;
-    type: "schedule" | "design" | "success" | "general";
+    type: "schedule" | "design" | "success" | "general" | "error";
   } | null;
   onDismissNotification: () => void;
 }
@@ -35,12 +35,12 @@ export const MobileFrame: React.FC<MobileFrameProps> = ({
 
   return (
     <div className="flex justify-center items-center py-6 px-4 bg-slate-900/40 min-h-screen">
-      {/* Outer Phone Shell Case */}
+        {/* Outer mobile shell */}
       <div 
         id="phone-shell-container"
         className="relative w-full max-w-[420px] h-[860px] bg-[#0c0d0e] rounded-[52px] shadow-[0_25px_60px_-15px_rgba(0,0,0,0.9)] p-[12px] border-4 border-slate-800/80 ring-12 ring-slate-950 flex flex-col overflow-hidden"
       >
-        {/* Sleek Speaker Ear Piece & Camera Punch Hole */}
+        {/* Speaker and camera */}
         <div className="absolute top-[20px] left-1/2 -translate-x-1/2 w-[140px] h-[30px] bg-[#000000] rounded-b-2xl z-50 flex items-center justify-center">
           {/* Subtle Speaker Line */}
           <div className="w-[45px] h-[4px] bg-slate-800 rounded-full mb-[8px]" />
@@ -51,7 +51,7 @@ export const MobileFrame: React.FC<MobileFrameProps> = ({
         {/* Inner Phone Screen Panel */}
         <div className="relative flex-1 bg-slate-950 rounded-[42px] overflow-hidden flex flex-col border border-slate-900">
           
-          {/* Android Status Bar */}
+          {/* Status bar */}
           <div className="h-[44px] bg-slate-900 flex items-center justify-between px-7 pt-4 text-xs text-slate-100/90 font-medium select-none z-40">
             <span>{time}</span>
             <div className="flex items-center gap-2">
@@ -64,7 +64,7 @@ export const MobileFrame: React.FC<MobileFrameProps> = ({
             </div>
           </div>
 
-          {/* Floating Android Notification Push Center */}
+          {/* Floating notification center */}
           <div className="absolute top-[52px] left-4 right-4 z-[999]">
             <AnimatePresence>
               {activeNotification && (
@@ -81,6 +81,8 @@ export const MobileFrame: React.FC<MobileFrameProps> = ({
                       ? "bg-amber-500/10 text-amber-400 border border-amber-500/20" 
                       : activeNotification.type === "success"
                       ? "bg-emerald-500/10 text-emerald-400 border border-emerald-500/20"
+                      : activeNotification.type === "error"
+                      ? "bg-red-500/10 text-red-400 border border-red-500/20"
                       : "bg-indigo-500/10 text-indigo-400 border border-indigo-500/20"
                   }`}>
                     {activeNotification.type === "design" ? (
@@ -95,7 +97,11 @@ export const MobileFrame: React.FC<MobileFrameProps> = ({
                   <div className="flex-1 min-w-0 pr-4">
                     <div className="flex items-center justify-between mb-0.5">
                       <span className="text-xs font-semibold text-indigo-300 uppercase tracking-wider flex items-center gap-1">
-                        {activeNotification.type === "design" ? "📋 Creation Alert" : "📱 Social Post Alert"}
+                        {activeNotification.type === "error"
+                          ? "Action Needed"
+                          : activeNotification.type === "design"
+                          ? "Asset Reminder"
+                          : "Post Nerd"}
                       </span>
                       <span className="text-[10px] text-slate-400">now</span>
                     </div>
@@ -107,7 +113,7 @@ export const MobileFrame: React.FC<MobileFrameProps> = ({
                     </p>
                     {activeNotification.type === "design" && (
                       <div className="mt-2 inline-flex items-center gap-1 px-2 py-0.5 rounded bg-amber-500/10 text-amber-300 text-[10px] border border-amber-500/20 font-medium">
-                        <Sparkles className="w-3 h-3" /> Opens creative prompt
+                        <Sparkles className="w-3 h-3" /> Asset brief available
                       </div>
                     )}
                   </div>
@@ -119,12 +125,12 @@ export const MobileFrame: React.FC<MobileFrameProps> = ({
             </AnimatePresence>
           </div>
 
-          {/* Actual Active Application Window */}
+          {/* Active application window */}
           <div className="flex-1 flex flex-col overflow-y-auto no-scrollbar relative">
             {children}
           </div>
 
-          {/* Android Screen Bottom Navigation Assist */}
+          {/* Bottom navigation assist */}
           <div className="h-[32px] bg-slate-950 flex items-center justify-center gap-[60px] pb-3 select-none z-30">
             {/* Back Button */}
             <div className="w-[14px] h-[14px] border-2 border-slate-600 rounded-sm rotate-45 cursor-pointer active:border-indigo-400 transition-colors" />

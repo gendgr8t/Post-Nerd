@@ -5,6 +5,8 @@ import {
   Sparkles, CheckCircle2, Pin, CalendarDays, ExternalLink, HelpCircle 
 } from "lucide-react";
 import { motion, AnimatePresence } from "motion/react";
+import { getDesignDueDate, toDateInputValue } from "../mockData";
+import { SHEET_TEMPLATE_HEADERS } from "../../shared/sheets";
 
 interface CalendarViewProps {
   posts: PostItem[];
@@ -35,7 +37,7 @@ export const CalendarView: React.FC<CalendarViewProps> = ({
   // Form values for a quick manual calendar addition
   const [newTitle, setNewTitle] = useState("");
   const [newPlatform, setNewPlatform] = useState<PostItem["platform"]>("Instagram");
-  const [newDate, setNewDate] = useState("2026-06-04");
+  const [newDate, setNewDate] = useState(toDateInputValue(new Date()));
   const [newTime, setNewTime] = useState("12:00");
   const [newContentType, setNewContentType] = useState<PostItem["contentType"]>("Graphics");
   const [newCopy, setNewCopy] = useState("");
@@ -65,15 +67,7 @@ export const CalendarView: React.FC<CalendarViewProps> = ({
       status: "Scheduled",
       originalCopy: newCopy,
       designAssetStatus: newContentType === "Graphics" ? "Not Started" : "Not Required",
-      designDueDate: (() => {
-        try {
-          const d = new Date(newDate);
-          d.setDate(d.getDate() - 2);
-          return d.toISOString().split("T")[0];
-        } catch (err) {
-          return newDate;
-        }
-      })()
+      designDueDate: getDesignDueDate(newDate)
     });
 
     // Reset Form
@@ -88,18 +82,17 @@ export const CalendarView: React.FC<CalendarViewProps> = ({
     setTimeout(() => setCopiedId(null), 2000);
   };
 
-  // Check if there is graphics content scheduled to post in exactly 2 days (relative to current date June 2, 2026)
-  // Trigger warning reminder inside dashboard
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+
   const graphicsCreationReminders = posts.filter(post => {
     if (post.contentType !== "Graphics") return false;
     
     try {
-      const today = new Date("2026-06-02");
-      const postDate = new Date(post.postDate);
+      const postDate = new Date(`${post.postDate}T00:00:00`);
       const diffTime = postDate.getTime() - today.getTime();
       const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
       
-      // Specifically trigger reminder if visual asset is scheduled to post in exactly 2 days (or is already overdue < 2 days and not yet ready)
       return diffDays <= 2 && diffDays >= 0 && post.designAssetStatus !== "Completed";
     } catch {
       return false;
@@ -114,7 +107,7 @@ export const CalendarView: React.FC<CalendarViewProps> = ({
         {graphicsCreationReminders.length > 0 && (
           <div className="space-y-2">
             {graphicsCreationReminders.map(post => {
-              const daysLeft = Math.max(0, Math.ceil((new Date(post.postDate).getTime() - new Date("2026-06-02").getTime()) / (1000 * 60 * 60 * 24)));
+              const daysLeft = Math.max(0, Math.ceil((new Date(`${post.postDate}T00:00:00`).getTime() - today.getTime()) / (1000 * 60 * 60 * 24)));
               return (
                 <motion.div
                   key={`alert-${post.id}`}
@@ -130,7 +123,7 @@ export const CalendarView: React.FC<CalendarViewProps> = ({
                         Content Creation Deadline Alert!
                       </h4>
                       <p className="text-[11px] text-slate-300 mt-1 leading-relaxed">
-                        <strong>"{post.title}"</strong> is scheduled to go live in {daysLeft === 0 ? "today" : daysLeft === 1 ? "1 day" : "2 days"} ({post.postDate}). Since it is a <strong>Graphics Post</strong>, you need to start designing the visual asset now!
+                        <strong>"{post.title}"</strong> is scheduled to go live {daysLeft === 0 ? "today" : daysLeft === 1 ? "in 1 day" : "in 2 days"} ({post.postDate}). Since it is a <strong>Graphics Post</strong>, prepare the visual asset before posting time.
                       </p>
                       
                       <div className="mt-3 flex items-center gap-2">
@@ -138,7 +131,7 @@ export const CalendarView: React.FC<CalendarViewProps> = ({
                           onClick={() => onGenerateDesignPrompt(post)}
                           className="px-2.5 py-1 text-[10px] font-bold rounded bg-amber-500/10 hover:bg-amber-500/20 text-amber-300 border border-amber-500/30 flex items-center gap-1 cursor-pointer transition-colors"
                         >
-                          <Sparkles className="w-3 h-3 text-amber-400" /> Plan Style with Bestie
+                          <Sparkles className="w-3 h-3 text-amber-400" /> Plan Asset
                         </button>
                         <button
                           onClick={() => onUpdatePostStatus(post.id, "Draft")}
@@ -175,7 +168,7 @@ export const CalendarView: React.FC<CalendarViewProps> = ({
           />
           <div className="flex items-center justify-between gap-2 pt-1">
             <span className="text-[10px] text-slate-500 italic">
-              {sheetsConfig.isSynced ? "Synced " + sheetsConfig.lastSyncTime : "Click to fetch live rows"}
+              {sheetsConfig.isSynced ? "Synced " + sheetsConfig.lastSyncTime : "Use a sheet with the template headers below"}
             </span>
             <button
               type="submit"
@@ -190,9 +183,16 @@ export const CalendarView: React.FC<CalendarViewProps> = ({
 
         <div className="mt-3 flex items-start gap-1 p-2 rounded bg-indigo-950/20 border border-indigo-900/40 text-[10px] text-indigo-300 leading-normal">
           <HelpCircle className="w-3 h-3 shrink-0 mt-0.5" />
-          <span>
-            Enable <strong>"Anyone with link can view"</strong> under Share parameters in Google Sheets so Google and the proxy can download the content calendar.
+          <span className="flex-1">
+            Share the sheet as <strong>"Anyone with the link can view"</strong>. Expected headers: {SHEET_TEMPLATE_HEADERS.join(", ")}.
           </span>
+          <a
+            href="/sample-calendar.csv"
+            className="text-indigo-200 hover:text-white underline underline-offset-2 shrink-0"
+            onClick={(event) => event.stopPropagation()}
+          >
+            CSV
+          </a>
         </div>
       </div>
 
@@ -245,7 +245,7 @@ export const CalendarView: React.FC<CalendarViewProps> = ({
             </div>
 
             <div className="space-y-1">
-              <label className="text-[10px] text-slate-400 font-semibold uppercase tracking-wider">FormatType</label>
+              <label className="text-[10px] text-slate-400 font-semibold uppercase tracking-wider">Format</label>
               <select
                 value={newContentType}
                 onChange={(e) => setNewContentType(e.target.value as PostItem["contentType"])}

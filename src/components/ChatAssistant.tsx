@@ -66,7 +66,7 @@ export const ChatAssistant: React.FC<ChatAssistantProps> = ({
                 Bestie
                 <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 animate-ping" />
               </h3>
-              <p className="text-[10px] text-slate-400">Powered by Gemini 3.5 Flash</p>
+              <p className="text-[10px] text-slate-400">Optional AI planning assistant</p>
             </div>
           </div>
 

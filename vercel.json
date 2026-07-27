@@ -1,0 +1,20 @@
+{
+  "buildCommand": "npm run vercel-build",
+  "outputDirectory": "dist",
+  "crons": [
+    {
+      "path": "/api/run-reminders",
+      "schedule": "*/30 * * * *"
+    }
+  ],
+  "rewrites": [
+    {
+      "source": "/api/(.*)",
+      "destination": "/api/$1"
+    },
+    {
+      "source": "/(.*)",
+      "destination": "/index.html"
+    }
+  ]
+}
