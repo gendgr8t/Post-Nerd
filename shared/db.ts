@@ -1,7 +1,7 @@
 import pg from "pg";
-import { AuthUser, hashPassword, verifyPassword } from "./auth";
-import { AppState, BrandKit, PostItem, SheetsConfig } from "./types";
-import { createSamplePosts, defaultBrandKit, defaultSheetsConfig } from "./defaults";
+import { AuthUser, hashPassword, verifyPassword } from "./auth.ts";
+import { AppState, BrandKit, PostItem, SheetsConfig } from "./types.ts";
+import { createSamplePosts, defaultBrandKit, defaultSheetsConfig } from "./defaults.ts";
 
 const { Pool } = pg;
 

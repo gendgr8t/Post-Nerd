@@ -1,3 +1,3 @@
-import { postsHandler } from "../shared/handlers";
+import { postsHandler } from "../shared/handlers.ts";
 
 export default postsHandler;

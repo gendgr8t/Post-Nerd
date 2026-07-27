@@ -1,3 +1,3 @@
-import { runRemindersHandler } from "../shared/handlers";
+import { runRemindersHandler } from "../shared/handlers.ts";
 
 export default runRemindersHandler;

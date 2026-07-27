@@ -1,5 +1,5 @@
 import crypto from "crypto";
-import { HandlerRequest, HandlerResponse } from "./http";
+import { HandlerRequest, HandlerResponse } from "./http.ts";
 
 const COOKIE_NAME = "post_nerd_session";
 const SESSION_TTL_SECONDS = 60 * 60 * 24 * 30;

@@ -1,3 +1,3 @@
-import { healthHandler } from "../shared/handlers";
+import { healthHandler } from "../shared/handlers.ts";
 
 export default healthHandler;

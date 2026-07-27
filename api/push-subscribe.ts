@@ -1,3 +1,3 @@
-import { pushSubscribeHandler } from "../shared/handlers";
+import { pushSubscribeHandler } from "../shared/handlers.ts";
 
 export default pushSubscribeHandler;

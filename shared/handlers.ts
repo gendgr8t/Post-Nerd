@@ -1,5 +1,5 @@
-import { asyncHandler, HandlerRequest, HandlerResponse, requireMethod } from "./http";
-import { clearSessionCookie, readSessionToken, setSessionCookie } from "./auth";
+import { asyncHandler, HandlerRequest, HandlerResponse, requireMethod } from "./http.ts";
+import { clearSessionCookie, readSessionToken, setSessionCookie } from "./auth.ts";
 import {
   authenticateUser,
   createUser,
@@ -14,11 +14,11 @@ import {
   setBrandKit,
   setSheetsConfig,
   upsertPost,
-} from "./db";
-import { getGemini, getGeminiModel } from "./gemini";
-import { BrandKit, ChatMessage, PostItem } from "./types";
-import { getCsvExportUrl, mapSheetRowsToPosts, parseCSV, SHEET_TEMPLATE_HEADERS } from "./sheets";
-import { getDesignDueDate } from "./defaults";
+} from "./db.ts";
+import { getGemini, getGeminiModel } from "./gemini.ts";
+import { BrandKit, ChatMessage, PostItem } from "./types.ts";
+import { getCsvExportUrl, mapSheetRowsToPosts, parseCSV, SHEET_TEMPLATE_HEADERS } from "./sheets.ts";
+import { getDesignDueDate } from "./defaults.ts";
 import webPush from "web-push";
 
 function nowLabel(): string {

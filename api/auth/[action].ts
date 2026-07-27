@@ -1,5 +1,5 @@
-import { loginHandler, logoutHandler, meHandler, registerHandler } from "../../shared/handlers";
-import { HandlerRequest, HandlerResponse } from "../../shared/http";
+import { loginHandler, logoutHandler, meHandler, registerHandler } from "../../shared/handlers.ts";
+import { HandlerRequest, HandlerResponse } from "../../shared/http.ts";
 
 const routes: Record<string, (req: HandlerRequest, res: HandlerResponse) => Promise<void>> = {
   me: meHandler,

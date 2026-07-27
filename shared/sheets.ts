@@ -1,5 +1,5 @@
-import { ContentType, DesignAssetStatus, Platform, PostItem, PostStatus } from "./types";
-import { getDesignDueDate, toDateInputValue } from "./defaults";
+import { ContentType, DesignAssetStatus, Platform, PostItem, PostStatus } from "./types.ts";
+import { getDesignDueDate, toDateInputValue } from "./defaults.ts";
 
 export const SHEET_TEMPLATE_HEADERS = [
   "Title",

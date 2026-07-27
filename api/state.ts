@@ -1,3 +1,3 @@
-import { stateHandler } from "../shared/handlers";
+import { stateHandler } from "../shared/handlers.ts";
 
 export default stateHandler;

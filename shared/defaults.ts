@@ -1,4 +1,4 @@
-import { BrandKit, PostItem, SheetsConfig } from "./types";
+import { BrandKit, PostItem, SheetsConfig } from "./types.ts";
 
 export function toDateInputValue(date: Date): string {
   return date.toISOString().split("T")[0];
